@@ -31,6 +31,8 @@ export default function BottomNavigation({ route, navigation }) {
             borderRadius: 15,
             height: 90,
             ...styles.shadow,
+            alignItems: "center",
+            justifyContent: "center", // Add this line
           },
           null,
         ],
@@ -38,19 +40,16 @@ export default function BottomNavigation({ route, navigation }) {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="addPet"
         component={HomePage}
         //initialParams={{ firstName: firstName }}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={styles.iconContainer}>
-              <Ionicons
-                name="home"
-                size={25}
-                color={focused ? "#227970" : "black"}
-              />
-              <Text>Home</Text>
-            </View>
+          tabBarButton: (props) => (
+            <TouchableOpacity style={styles.addBtn}>
+              <View style={styles.addBtnView}>
+                <Ionicons name="add" size={50} color="white" style={{}} />
+              </View>
+            </TouchableOpacity>
           ),
         }}
       />
