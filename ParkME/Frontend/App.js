@@ -1,10 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import TopTimer from './Components/TopTimer';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your appskjdfhskjdfhsdkjfhskjdfhsjkdhskr!</Text>
+      <TopTimer/>
+      <Text>Open up App.js to start working on your</Text>
       <StatusBar style="auto" />
     </View>
   );
