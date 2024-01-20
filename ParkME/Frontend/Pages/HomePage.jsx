@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-
+import CameraComponent from "../Components/CameraComponent";
 export default function HomePage({ route, navigation }) {
   //const { firstName } = route.params;
 
@@ -23,20 +23,9 @@ export default function HomePage({ route, navigation }) {
   //console.log(firstName);
 
   return (
-    <View>
-      <View style={styles.textBox}>
-        <Text style={styles.text}>
-          You don't have any pets! Add your first pet by pressing the + button
-        </Text>
-      </View>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={handleAddPetClick}
-      ></TouchableOpacity>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={handleviewPetClick}
-      ></TouchableOpacity>
+    <View style={styles.textBox}>
+      <CameraComponent />
+      
     </View>
   );
 }
@@ -86,7 +75,6 @@ const styles = StyleSheet.create({
     height: "38%",
     width: "100%",
     justifyContent: "center",
-    alignItems: "center",
   },
   pageDots: {
     flexDirection: "row",
@@ -103,13 +91,9 @@ const styles = StyleSheet.create({
     backgroundColor: "turquoise",
   },
   textBox: {
-    position: "absolute",
-    width: 293,
-    height: 72,
-    left: 60,
-    top: 472,
-    justifyContent: "center",
-    alignItems: "center",
+    height: "100%",
+    width: "100%",
+    
   },
   text: {
     fontFamily: "Montserrat-Regular",
@@ -127,5 +111,8 @@ const styles = StyleSheet.create({
     marginLeft: -152.5,
     top: 173,
     resizeMode: "contain",
+  },
+  full_screen: {
+    width: "100%",
   },
 });

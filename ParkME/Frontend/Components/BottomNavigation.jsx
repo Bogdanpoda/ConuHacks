@@ -45,7 +45,11 @@ export default function BottomNavigation({ route, navigation }) {
         //initialParams={{ firstName: firstName }}
         options={{
           tabBarButton: (props) => (
-            <TouchableOpacity style={styles.addBtn}>
+            <TouchableOpacity style={styles.addBtn}
+            onPress={() => {
+              // Add your onPress logic here
+              console.log("Button pressed");
+            }}>
               <View style={styles.addBtnView}>
                 <Ionicons
                   name="camera-outline"
