@@ -1,15 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import TopTimer from './Components/TopTimer';
 import MyCamera from './components/CameraComponent';
 
+
 export default function App() {
-  
-    return (
-      <View style={{ flex: 1 }}>
-        {/* Other components or content in your app */}
-        <MyCamera />
-      </View>
-    
+  return (
+    <View style={styles.container}>
+      <TopTimer/>
+      <MyCamera />
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
