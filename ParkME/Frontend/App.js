@@ -1,12 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import TopTimer from './Components/TopTimer';
+import MyCamera from './components/camera';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <TopTimer/>
-      <Text>Open up App.js to start working on your</Text>
+      <MyCamera />
       <StatusBar style="auto" />
     </View>
   );
