@@ -47,7 +47,12 @@ export default function BottomNavigation({ route, navigation }) {
           tabBarButton: (props) => (
             <TouchableOpacity style={styles.addBtn}>
               <View style={styles.addBtnView}>
-                <Ionicons name="add" size={50} color="white" style={{}} />
+                <Ionicons
+                  name="camera-outline"
+                  size={50}
+                  color="white"
+                  style={{}}
+                />
               </View>
             </TouchableOpacity>
           ),
