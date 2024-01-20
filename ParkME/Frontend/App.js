@@ -1,7 +1,7 @@
 
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import TopTimer from './Components/TopTimer';
+import TopTimer from './components/TopTimer';
 import MyCamera from './components/CameraComponent';
 
 

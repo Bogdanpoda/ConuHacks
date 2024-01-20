@@ -19,11 +19,8 @@
     "react-native-vision-camera": "^3.8.2",
     "react-native-web": "~0.19.6",
     "expo-camera": "~14.0.1",
-
-    "expo-media-library": "~15.9.1"
-=======
+    "expo-media-library": "~15.9.1",
     "react-native-ionicons": "^4.6.5"
-
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
