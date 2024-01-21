@@ -5,7 +5,7 @@ import { View, StyleSheet, Pressable, Alert, Text } from "react-native";
 export default function SummaryPage({ navigation, route }) {
   const { summary } = route.params;
 
-  if (summary.canPark) {
+  if (!summary.canPark) {
     return (
       <View style={styles.container}>
         <View style={styles.summaryCard}>

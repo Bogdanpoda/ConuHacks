@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import CameraComponent from "../components/CameraComponent";
+import CameraComponent from "../component/CameraComponent";
 import { useState, useEffect } from "react";
-import TopTimer from "../components/TopTimer";
+import TopTimer from "../component/TopTimer";
 
 export default function HomePage({ trigger }) {
   //const { triggerState } = route.params;
