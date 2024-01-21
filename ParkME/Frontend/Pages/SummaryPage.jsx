@@ -38,9 +38,20 @@ export default function SummaryPage({ navigation, route }) {
           <Text style={styles.summaryTitle}>You can park here!</Text>
         </View>
 
-        <View>
-          <Text style={styles.summaryText}>License Plate: {summary.plate}</Text>
-        </View>
+        <Text style={styles.summaryText}>
+          {summary.timeLeft === "N/A"
+            ? "Parking is available for more than a day!"
+            : "YParking is available for " + summary.timeLeft + " minutes"}
+        </Text>
+
+        <Pressable
+          style={styles.summaryBtn}
+          onPress={() => navigation.popToTop()}
+        >
+          <Text style={styles.summaryBtnText}>
+            Be notified when it's available
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -55,16 +66,16 @@ const styles = StyleSheet.create({
   },
   summaryCard: {
     flexDirection: "column",
-    gap: 20,
+    gap: 10,
     width: "80%",
     height: "50%",
     backgroundColor: "#fff",
     borderRadius: 20,
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
   summaryIcon: {
-    top: -40,
+    top: 0,
     gap: 10,
     borderRadius: 50,
     backgroundColor: "#fff",
@@ -76,5 +87,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "green",
     width: "100%",
+  },
+  summaryBtn: {
+    width: "80%",
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: "#000",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#bca7c4",
+    fontWeight: "bold",
+  },
+  summaryBtnText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  summaryText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000",
+    width: "80%",
+    textAlign: "center",
   },
 });
