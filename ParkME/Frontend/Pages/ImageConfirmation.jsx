@@ -51,7 +51,11 @@ function ImageConfirmation({ route, navigation }) {
             name="checkmark"
             size={40}
             color="white"
+<<<<<<< Updated upstream
             onPress={() => {uploadImage(imageUri), navigation.navigate('SummaryPage')}}
+=======
+            onPress={() => navigation.push("Summary")}
+>>>>>>> Stashed changes
           />
         </Pressable>
       </View>

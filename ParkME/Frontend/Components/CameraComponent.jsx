@@ -1,5 +1,9 @@
 // camera.jsx
+<<<<<<< Updated upstream
 import { Camera, CameraType, FlashMode } from "expo-camera";
+=======
+import { Camera, CameraType, FlashMode} from "expo-camera";
+>>>>>>> Stashed changes
 import { useState, useRef } from "react";
 import {
     Button,
@@ -14,13 +18,21 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import ImageUploader from "./ImageUploader";
 import Slider from '@react-native-community/slider';
 
-
+const timeInfo = {
+    timeLeft: 120,
+    vignetteNumber: 0,
+    timeLeftVignette: 0,
+    arrow: true
+}
 export default function CameraComponent({ route, navigation }) {
+    let triggerState = false;
+    triggerState = route.params;
     const [type, setType] = useState(CameraType.back);
     const [permission, requestPermission] = Camera.useCameraPermissions();
     const [flash, setFlash] = useState(FlashMode.off);
     const cameraRef = useRef(null);
     const [zoom, setZoom] = useState(0);
+    const [timer,setTimer]=useState(0);
 
 
 
@@ -56,6 +68,8 @@ export default function CameraComponent({ route, navigation }) {
                 console.log("Photo taken:", photo.uri);
                 // Navigate to the confirmation screen
                 navigation.push("Confirmation", { imageUri: photo.uri });
+                res = timeInfo.timeLeft;
+                setTimer(res);
             } catch (error) {
                 console.error("Error taking photo:", error);
             }
@@ -71,6 +85,9 @@ export default function CameraComponent({ route, navigation }) {
     const handleZoomChange = (value) => {
         setZoom((value));
     };
+    if(!triggerState){
+        triggerState=true;
+    }
 
     return (
         <View style={styles.container}>
@@ -82,9 +99,13 @@ export default function CameraComponent({ route, navigation }) {
                 flashMode={flash}
                 ratio="16:9"
                 zoom={zoom}
+<<<<<<< Updated upstream
                 
+=======
+               
+>>>>>>> Stashed changes
             >
-                <TopTimer />
+                <TopTimer timer={timer} setTimer={setTimer} triggerState={triggerState}/>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
                         <Ionicons
