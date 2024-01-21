@@ -10,13 +10,13 @@ import {
   Platform,
   Alert,
 } from "react-native";
+import { storeData } from "../lib";
 
 function ImageConfirmation({ route, navigation }) {
   const [isLoading, setIsLoading] = React.useState(false);
-
-  const { imageUri } = route.params;
-
-  useEffect(() => {}, [isLoading]);
+  console.log(route.params.timerState);
+  const { imageUri, timerState } = route.params;
+  console.log("Timer state:", timerState);
 
   const uploadImage = async (uri) => {
     const data = new FormData();
@@ -37,6 +37,7 @@ function ImageConfirmation({ route, navigation }) {
       });
 
       response = await response.json();
+
       setIsLoading(false);
 
       navigation.replace("SummaryPage", { summary: response.data });

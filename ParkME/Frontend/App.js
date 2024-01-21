@@ -12,7 +12,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Camera">
           <Stack.Screen
             name="Camera"
             component={CameraComponent}
@@ -24,7 +24,11 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="Notifications" component={NotificationScreen} />
-          <Stack.Screen name="SummaryPage" component={SummaryPage} />
+          <Stack.Screen
+            name="SummaryPage"
+            component={SummaryPage}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>
