@@ -21,7 +21,7 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
 
   try {
     const data = await chatgptVisionPrompt(imageUrl);
-    console.log(data);
+    res.json({ message: "Image uploaded successfully", data });
   } catch (error) {
     console.error("Error with chatgptVisionPrompt:", error);
   }
