@@ -1,5 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import { ActivityIndicator } from "@react-native-material/core";
+import { isLoading } from "expo-font";
+import React, { useEffect } from "react";
 import {
   View,
   Image,
@@ -10,7 +12,11 @@ import {
 } from "react-native";
 
 function ImageConfirmation({ route, navigation }) {
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const { imageUri } = route.params;
+
+  useEffect(() => {}, [isLoading]);
 
   const uploadImage = async (uri) => {
     const data = new FormData();
@@ -21,6 +27,7 @@ function ImageConfirmation({ route, navigation }) {
     });
 
     try {
+      setIsLoading(true);
       let response = await fetch("http://0.0.0.0:3000/upload-image", {
         method: "POST",
         body: data,
@@ -29,18 +36,26 @@ function ImageConfirmation({ route, navigation }) {
         },
       });
 
-      let responseJson = await response.json();
-      console.log(responseJson);
+      response = await response.json();
+      setIsLoading(false);
+
+      navigation.replace("SummaryPage", { summary: response.data });
     } catch (error) {
       navigation.pop();
       Alert.alert("Error uploading image", error.message);
     }
   };
 
+  if (isLoading)
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#8d58a1" />
+      </View>
+    );
+
   return (
     <View style={styles.container}>
       <Image source={{ uri: imageUri }} style={styles.image} />
-      {/* Add any other UI elements you want here */}
       <View style={styles.btnRow}>
         <Pressable style={styles.confirmBtn} onPress={() => navigation.pop()}>
           <Ionicons name="close-outline" size={40} color="white" />
@@ -66,8 +81,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   image: {
+    flex: 1,
     width: "100%",
-    height: "80%",
+    height: "100%",
+    resizeMode: "contain",
   },
   confirmBtn: {
     width: 70,
