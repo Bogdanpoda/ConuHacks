@@ -2,12 +2,26 @@ import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import CameraComponent from "../components/CameraComponent";
 import { useState, useEffect } from "react";
+import TopTimer from "../components/TopTimer";
+
 export default function HomePage({ trigger }) {
   //const { triggerState } = route.params;
 
   const [triggerState, setTriggerState] = useState(false);
 
-  
+  const handleAddPetClick = () => {
+    console.log("firstName");
+
+    // navigation.navigate({
+    //   name: "AddPetForm",
+    //  params: { firstName: firstName },
+    // });
+  };
+
+  const handleviewPetClick = () => {
+    //navigation.navigate("PetProfile", { firstName: firstName });
+    console.log("firstName");
+  };
 
   return (
     <View style={styles.textBox}>

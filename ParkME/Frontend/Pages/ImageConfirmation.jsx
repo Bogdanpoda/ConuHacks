@@ -11,7 +11,6 @@ import {
   Alert,
 } from "react-native";
 
-
 function ImageConfirmation({ route, navigation }) {
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -66,7 +65,7 @@ function ImageConfirmation({ route, navigation }) {
             name="checkmark"
             size={40}
             color="white"
-            onPress={() => {uploadImage(imageUri), navigation.push("Summary")}}
+            onPress={() => uploadImage(imageUri)}
           />
         </Pressable>
       </View>
