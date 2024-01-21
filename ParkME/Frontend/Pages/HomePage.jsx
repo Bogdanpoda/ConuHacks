@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import CameraComponent from "../Components/CameraComponent";
 import { useState, useEffect } from "react";
+import TopTimer from "../Components/TopTimer";
 
 export default function HomePage({ trigger }) {
   //const { triggerState } = route.params;
@@ -23,6 +24,7 @@ export default function HomePage({ trigger }) {
   };
 
   return (
+   
     <View style={styles.textBox}>
       <CameraComponent triggerState={trigger} />
     </View>
@@ -35,6 +37,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f2f2f2",
     marginTop: 80,
+  },
+  topTimerContainer: {
+    zIndex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: '11%'
   },
   logoContainer: {
     justifyContent: "center",
