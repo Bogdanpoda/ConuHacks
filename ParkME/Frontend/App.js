@@ -8,9 +8,13 @@ import MyCamera from './components/CameraComponent';
 export default function App() {
   return (
     <View style={styles.container}>
-      <TopTimer/>
-      <MyCamera />
-      <StatusBar style="auto" />
+
+      
+   
+      <MyCamera  />
+      
+      
+      
     </View>
   );
 }
@@ -18,8 +22,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    allignItems: 'center', 
+    justifyContent: 'center'
   },
 });

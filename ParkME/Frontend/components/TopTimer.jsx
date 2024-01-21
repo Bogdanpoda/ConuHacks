@@ -1,9 +1,32 @@
 import { StyleSheet } from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, Pressable} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function TopTimer() {
+
+    const [appear, setAppear] = useState(false);
+
+    function toggleAppear() {
+        setAppear(current => !current);
+    }
+
+    if (!appear) {
+        return (
+            <View style={styles.topbarContainer}>
+                <View style={styles.timerContainer}>
+                    <View styles={styles.timer}>
+                        <Text style={styles.timerText}>Check your parking! </Text>
+                    </View>
+                </View>
+                <View style={styles.endButtonContainer}>
+                    <Pressable onPress={toggleAppear} style={({ pressed }) => [{ backgroundColor: pressed ? '#bbb' : '#ddd' }, styles.endButton ]}>
+                        <Ionicons name="trash" style={styles.endButtonIcon}/>
+                    </Pressable>
+                </View>
+            </View>
+        )
+    }
     return (
         <View style={styles.topbarContainer}>
             <View style={styles.timerContainer}>
@@ -12,7 +35,7 @@ export default function TopTimer() {
                 </View>
             </View>
             <View style={styles.endButtonContainer}>
-                <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? '#bbb' : '#ddd' }, styles.endButton ]}>
+                <Pressable onPress={toggleAppear} style={({ pressed }) => [{ backgroundColor: pressed ? '#bbb' : '#ddd' }, styles.endButton ]}>
                     <Ionicons name="trash" style={styles.endButtonIcon}/>
                 </Pressable>
             </View>
@@ -27,7 +50,6 @@ const styles = StyleSheet.create({
         height: 70,
         width: '90%',
         top: '6%',
-        position: "absolute",
         borderRadius: 15,
         shadowColor: "#75f5df0",
         shadowOffset: {
