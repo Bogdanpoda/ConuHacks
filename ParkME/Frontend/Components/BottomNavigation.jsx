@@ -2,8 +2,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomePage from "../Pages/HomePage";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { green } from "@mui/material/colors";
 import React, { useState, useEffect } from "react";
+import ImageUploader from "./ImageUploader";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +18,6 @@ export default function BottomNavigation({ route, navigation }) {
 
   useEffect(() => {
     // Update the screen params dynamically whenever trigger changes
-
   }, [trigger]);
 
   const handleButtonPress = () => {
@@ -34,13 +33,14 @@ export default function BottomNavigation({ route, navigation }) {
         tabBarStyle: [
           {
             position: "absolute",
+            flex: 1,
+            width: "100%",
+            flexDirection: "row",
             bottom: 25,
-            left: 20,
-            right: 20,
             elevation: 0,
             backgroundColor: "#bca7c4",
             borderRadius: 15,
-            height: 90,
+            height: 70,
             ...styles.shadow,
             alignItems: "center",
             justifyContent: "center", // Add this line
@@ -50,6 +50,17 @@ export default function BottomNavigation({ route, navigation }) {
         tabBarShowLabel: false,
       }}
     >
+      <Tab.Screen
+        name="home"
+        component={ImageUploader}
+        options={{
+          tabBarButton: () => (
+            <View style={styles.iconContainer}>
+              <Ionicons name="images-outline" size={30} color={"#fff"} />
+            </View>
+          ),
+        }}
+      />
       <Tab.Screen
         name="addPet"
         //component={() => <HomePage trigger={trigger} />}
@@ -77,6 +88,18 @@ export default function BottomNavigation({ route, navigation }) {
       >
         {() => <HomePage trigger={trigger} />}
       </Tab.Screen>
+      <Tab.Screen
+        name="notifications"
+        component={ImageUploader}
+        options={{
+          tabBarButton: () => (
+            <View style={styles.iconContainer}>
+              <Ionicons name="images-outline" size={30} color={"#fff"} />
+            </View>
+          ),
+          tabBarStyle: {},
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -93,9 +116,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   iconContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    top: 10,
   },
   addBtn: {
     top: -30,

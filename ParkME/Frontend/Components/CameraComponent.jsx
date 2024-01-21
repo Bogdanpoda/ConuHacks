@@ -1,12 +1,19 @@
 // camera.jsx
 import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useState, useRef } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useEffect } from "react";
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import TopTimer from "./TopTimer";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ImageUploader from "./ImageUploader";
 
-export default function CameraComponent({ triggerState }) {
+export default function CameraComponent({ route, navigation }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [flash, setFlash] = useState(FlashMode.off);
@@ -41,6 +48,8 @@ export default function CameraComponent({ triggerState }) {
       try {
         const photo = await cameraRef.current.takePictureAsync();
         console.log("Photo taken:", photo.uri);
+        // Navigate to the confirmation screen
+        navigation.push("Confirmation", { imageUri: photo.uri });
       } catch (error) {
         console.error("Error taking photo:", error);
       }
@@ -51,12 +60,6 @@ export default function CameraComponent({ triggerState }) {
     setFlash((current) =>
       current === FlashMode.on ? FlashMode.off : FlashMode.on
     );
-  }
-
-  if (previous != triggerState) {
-    console.log("will take picture");
-    takePicture();
-    setPrevious(triggerState);
   }
 
   return (
@@ -84,9 +87,32 @@ export default function CameraComponent({ triggerState }) {
               }
             ></Ionicons>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.button} onPress={takePicture}>
-                <Text style={styles.text}>Take Picture</Text>
-            </TouchableOpacity> */}
+        </View>
+        <View style={styles.navigator}>
+          <ImageUploader navigation={navigation} />
+          <Pressable
+            style={styles.addBtn}
+            onPress={() => {
+              console.log("Button pressed");
+              takePicture();
+            }}
+          >
+            <View style={styles.addBtnView}>
+              <Ionicons
+                name="camera-outline"
+                size={40}
+                color="white"
+                style={{}}
+              />
+            </View>
+          </Pressable>
+          <Pressable onPress={() => navigation.push("Notifications")}>
+            <Ionicons
+              name="mail-unread-outline"
+              color={"#fff"}
+              size={30}
+            ></Ionicons>
+          </Pressable>
         </View>
       </Camera>
     </View>
@@ -118,6 +144,46 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "white",
+  },
+  navigator: {
+    position: "absolute",
+    flex: 1,
+    width: "80%",
+    flexDirection: "row",
+    paddingHorizontal: 40,
+    bottom: 25,
+    elevation: 0,
+    backgroundColor: "#bca7c4",
+    borderRadius: 15,
+    height: 70,
+    alignItems: "center",
+    justifyContent: "space-between",
+    shadowColor: "#75f5df0",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+  },
+  addBtn: {
+    top: -30,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#75f5df0",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5,
+  },
+  addBtnView: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: "#8d58a1",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
