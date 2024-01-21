@@ -14,8 +14,45 @@ function findTimeLeftForArray(panels){
 };
 
 function findTimeLeft(panel){
-    return null;
+    var timeInfo = {
+        timeLeft: 0,
+        vignetteNumber: null,
+        timeLeftVignette: null,
+        arrow: panel.Arrow
+    }
+
+    const date = new Date();
+    date.setHours(date.getHours() - 5);
+
+    if (panel.RestrictionType === "Reserved"){
+        timeInfo.vignetteNumber = panel.ReservedFor;
+        timeInfo.timeLeftVignette = 9999;
+    }
+
+    var minutesLeft = 0;
+
+    for (var i = 0; i <= 24; i++){
+        if (canYouPark(panel, date)){
+            minutesLeft += 60;
+        }
+        else {
+            break;
+        }
+        date.setTime(date.getTime() + 3600000);
+    }
+
+
+    if(minutesLeft != 0){
+        timeInfo.timeLeft = ((minutesLeft - date.getMinutes()) > 1440) ? 9999 : minutesLeft - date.getMinutes();
+    }
+
+    return timeInfo;
 }
+
+
+
+
+
 
 function canYouPark(panel, date){
     if (panel.Months){
