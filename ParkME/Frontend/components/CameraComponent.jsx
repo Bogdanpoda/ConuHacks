@@ -1,43 +1,24 @@
-// camera.jsx
-import { Camera, CameraType, FlashMode, AutoFocus } from "expo-camera";
+import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useState, useRef } from "react";
 import {
   Button,
-  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
+  Pressable,
   View,
 } from "react-native";
+import { useEffect } from "react";
 import TopTimer from "./TopTimer";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { UploadImageApi } from "../api/ApplicationApi";
-import ImageUploader from "../ImageUploader";
-import Slider from "@react-native-community/slider";
+import ImageUploader from "./ImageUploader";
 
-const timeInfo = {
-  timeLeft: 0,
-  vignetteNumber: null,
-  timeLeftVignette: null,
-  arrow: false,
-};
-
-export default function CameraComponent({ triggerState }) {
+export default function CameraComponent({ triggerState, navigation }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [flash, setFlash] = useState(FlashMode.off);
-  const [image, setImage] = useState(null);
-
-  const [timer, setTimer] = useState(0);
   const cameraRef = useRef(null);
   const [previous, setPrevious] = useState(false);
-  const [zoom, setZoom] = useState(0);
-
-  function toggleCameraType() {
-    setType((current) =>
-      current === CameraType.back ? CameraType.front : CameraType.back
-    );
-  }
 
   if (!permission) {
     // Camera permissions are still loading
@@ -56,25 +37,6 @@ export default function CameraComponent({ triggerState }) {
     );
   }
 
-  const handleUploadImage = async (imageUrl) => {
-    try {
-      const res = await UploadImageApi(imageUrl);
-      console.log(res.timeLeft);
-      setTimer(res.timeLeft);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
-  };
-
-  (async () => {
-    if (previous !== triggerState) {
-      console.log("Will take picture");
-      await takePicture();
-      setPrevious(triggerState);
-      await handleUploadImage(image.uri);
-    }
-  })();
-
   function toggleCameraType() {
     setType((current) =>
       current === CameraType.back ? CameraType.front : CameraType.back
@@ -86,8 +48,6 @@ export default function CameraComponent({ triggerState }) {
       try {
         const photo = await cameraRef.current.takePictureAsync();
         console.log("Photo taken:", photo.uri);
-        // Navigate to the confirmation screen
-        navigation.push("Confirmation", { imageUri: photo.uri });
       } catch (error) {
         console.error("Error taking photo:", error);
       }
@@ -100,10 +60,6 @@ export default function CameraComponent({ triggerState }) {
     );
   }
 
-  const handleZoomChange = (value) => {
-    setZoom(value);
-  };
-
   return (
     <View style={styles.container}>
       <Camera
@@ -112,8 +68,6 @@ export default function CameraComponent({ triggerState }) {
         ref={cameraRef}
         flashMode={flash}
         ratio="16:9"
-        zoom={zoom}
-        autoFocus={focus}
       >
         <TopTimer />
         <View style={styles.buttonContainer}>
@@ -132,44 +86,34 @@ export default function CameraComponent({ triggerState }) {
             ></Ionicons>
           </TouchableOpacity>
         </View>
+        <View style={styles.navigatorContainer}>
+          <View style={styles.navigator}>
+            <View>
 
-        <View style={styles.controlsContainer}>
-          <Slider
-            style={{ width: "80%" }}
-            minimumValue={0}
-            maximumValue={0.03}
-            value={zoom}
-            onValueChange={handleZoomChange}
-            minimumTrackTintColor="#FFFFFF"
-            maximumTrackTintColor="#000000"
-          />
-        </View>
+            <ImageUploader navigation={navigation} />
 
-        <View style={styles.navigator}>
-          <ImageUploader navigation={navigation} />
-          <Pressable
-            style={styles.addBtn}
-            onPress={() => {
-              console.log("Button pressed");
-              takePicture();
-            }}
-          >
-            <View style={styles.addBtnView}>
-              <Ionicons
-                name="camera-outline"
-                size={40}
-                color="white"
-                style={{}}
-              />
+
             </View>
-          </Pressable>
-          <Pressable onPress={() => navigation.push("Notifications")}>
-            <Ionicons
-              name="mail-unread-outline"
-              color={"#fff"}
-              size={30}
-            ></Ionicons>
-          </Pressable>
+          
+            <TouchableOpacity
+              style={styles.addBtns}
+              onPress={() => {
+                console.log("Button pressed");
+                takePicture();
+              }}
+            >
+              <View style={styles.addBtnsView}>
+                <Ionicons
+                  name="camera-outline"
+                  size={50}
+                  color="white"
+                  style={{}}
+                />
+              </View>
+            </TouchableOpacity>
+
+
+          </View>
         </View>
       </Camera>
     </View>
@@ -196,6 +140,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
     alignItems: "center",
     textAlign: "center",
+    zIndex: 200,
   },
   text: {
     fontSize: 24,
@@ -209,50 +154,54 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
     backgroundColor: "transparent",
-    paddingBottom: "40%",
     transform: [{ rotate: "-90deg" }],
     zIndex: 1,
   },
+
+  navigatorContainer: {
+    flex: 1,
+    position: "Absolute",
+    width: "100%",
+    backgroundColor: "transparent",
+    borderRadius: 15,
+    height: 150,
+    alignItems: "center",
+    justifyContent: "center", // Add this line
+    zIndex: 100,
+    justifyContent: "flex-end",
+  },
+
+
   navigator: {
     position: "absolute",
-    flex: 1,
-    width: "80%",
-    flexDirection: "row",
-    paddingHorizontal: 40,
+    width: "87%",
     bottom: 25,
-    elevation: 0,
     backgroundColor: "#bca7c4",
     borderRadius: 15,
     height: 70,
-    alignItems: "center",
-    justifyContent: "space-between",
-    shadowColor: "#75f5df0",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
+    justifyContent: "center", // Add this line
+    zIndex: 100,
   },
-  addBtn: {
+  addBtns: {
     top: -30,
-    justifyContent: "center",
-    alignItems: "center",
+
     shadowColor: "#75f5df0",
     shadowOffset: {
       width: 0,
       height: 10,
     },
+    bottom: 20,
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
-    elevation: 5,
+    zIndex: 300,
   },
-  addBtnView: {
+  addBtnsView: {
     width: 70,
     height: 70,
     borderRadius: 35,
     backgroundColor: "#8d58a1",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 300,
   },
 });
-
-//export default MyCamera;
