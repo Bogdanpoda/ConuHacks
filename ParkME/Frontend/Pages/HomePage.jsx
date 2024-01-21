@@ -1,8 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import CameraComponent from "../Components/CameraComponent";
-export default function HomePage({ route, navigation }) {
-  //const { firstName } = route.params;
+import { useState, useEffect } from "react";
+
+export default function HomePage({ trigger }) {
+  //const { triggerState } = route.params;
+
+  const [triggerState, setTriggerState] = useState(false);
 
   const handleAddPetClick = () => {
     console.log("firstName");
@@ -20,12 +24,9 @@ export default function HomePage({ route, navigation }) {
 
   console.log("in homepage");
 
-  //console.log(firstName);
-
   return (
     <View style={styles.textBox}>
-      <CameraComponent />
-      
+      <CameraComponent triggerState={trigger} />
     </View>
   );
 }
@@ -93,7 +94,6 @@ const styles = StyleSheet.create({
   textBox: {
     height: "100%",
     width: "100%",
-    
   },
   text: {
     fontFamily: "Montserrat-Regular",

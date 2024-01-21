@@ -2,11 +2,14 @@
 import { Camera, CameraType } from "expo-camera";
 import { useState, useRef } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useEffect } from "react";
 
-export default function CameraComponent() {
+export default function CameraComponent({ triggerState }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
+
   const cameraRef = useRef(null);
+  const [previous, setPrevious] = useState(false);
 
   if (!permission) {
     // Camera permissions are still loading
@@ -39,15 +42,18 @@ export default function CameraComponent() {
     }
   };
 
+  if (previous != triggerState) {
+    console.log("will take picture");
+    takePicture();
+    setPrevious(triggerState);
+  }
+
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
             <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={takePicture}>
-            <Text style={styles.text}>Take Picture</Text>
           </TouchableOpacity>
         </View>
       </Camera>

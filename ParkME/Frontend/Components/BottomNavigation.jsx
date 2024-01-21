@@ -3,8 +3,7 @@ import HomePage from "../Pages/HomePage";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { green } from "@mui/material/colors";
-
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,6 +14,19 @@ const AddTabButton = (children, onPress) => {
 };
 
 export default function BottomNavigation({ route, navigation }) {
+  const [trigger, setTrigger] = useState(false);
+
+  useEffect(() => {
+    // Update the screen params dynamically whenever trigger changes
+
+    console.log("hello");
+  }, [trigger]);
+
+  const handleButtonPress = () => {
+    // Toggle the trigger state
+    setTrigger(!trigger);
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -41,15 +53,17 @@ export default function BottomNavigation({ route, navigation }) {
     >
       <Tab.Screen
         name="addPet"
-        component={HomePage}
-        //initialParams={{ firstName: firstName }}
+        //component={() => <HomePage trigger={trigger} />}
+        //initialParams={{ triggerState: trigger }}
         options={{
           tabBarButton: (props) => (
-            <TouchableOpacity style={styles.addBtn}
-            onPress={() => {
-              // Add your onPress logic here
-              console.log("Button pressed");
-            }}>
+            <TouchableOpacity
+              style={styles.addBtn}
+              onPress={() => {
+                console.log("Button pressed");
+                handleButtonPress();
+              }}
+            >
               <View style={styles.addBtnView}>
                 <Ionicons
                   name="camera-outline"
@@ -61,7 +75,9 @@ export default function BottomNavigation({ route, navigation }) {
             </TouchableOpacity>
           ),
         }}
-      />
+      >
+        {() => <HomePage trigger={trigger} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
