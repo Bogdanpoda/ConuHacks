@@ -1,14 +1,54 @@
 import { StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function TopTimer() {
+export default function TopTimer({ timer, setTimer }) {
   const [appear, setAppear] = useState(false);
+  const [hour, setHour] = useState(0);
+  const [minute, setMinute] = useState(0);
+  const [second, setSecond] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(0);
 
   function toggleAppear() {
     setAppear((current) => !current);
+
+    setHour(0);
+    setMinute(0);
+    setSecond(0);
+    setTimeRemaining(0);
+    setTimer(0);
   }
+  useEffect(() => {
+    const hours = Math.floor(timer / 60);
+    const remainingMinutes = timer % 60;
+    const minutes = Math.floor(remainingMinutes);
+    const seconds = Math.round((remainingMinutes - minutes) * 60);
+
+    setHour(hours);
+    setMinute(minutes);
+    setSecond(seconds);
+    setTimeRemaining(timer * 60);
+  }, [timer]);
+
+  useEffect(() => {
+    // Update the time every second
+    const intervalId = setInterval(() => {
+      if (timeRemaining > 0) {
+        setTimeRemaining((prevTime) => prevTime - 1);
+        const hours = Math.floor(timeRemaining / 3600);
+        const minutes = Math.floor((timeRemaining % 3600) / 60);
+        const seconds = timeRemaining % 60;
+
+        setHour(hours);
+        setMinute(minutes);
+        setSecond(seconds);
+      }
+    }, 1000);
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, [timeRemaining]);
 
   if (!appear) {
     return (
@@ -36,7 +76,9 @@ export default function TopTimer() {
     <View style={styles.topbarContainer}>
       <View style={styles.timerContainer}>
         <View styles={styles.timer}>
-          <Text style={styles.timerText}>Time left: 00:00:00</Text>
+          <Text style={styles.timerText}>
+            Time left: {hour}:{minute}:{second}
+          </Text>
         </View>
       </View>
       <View style={styles.endButtonContainer}>

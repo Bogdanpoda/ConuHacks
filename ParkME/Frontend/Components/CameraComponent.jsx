@@ -5,11 +5,22 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useEffect } from "react";
 import TopTimer from "./TopTimer";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { UploadImageApi } from "../api/ApplicationApi";
+
+const timeInfo = {
+  timeLeft: 0,
+  vignetteNumber: null,
+  timeLeftVignette: null,
+  arrow: false,
+};
 
 export default function CameraComponent({ triggerState }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [flash, setFlash] = useState(FlashMode.off);
+  const [image, setImage] = useState(null);
+
+  const [timer, setTimer] = useState(0);
   const cameraRef = useRef(null);
   const [previous, setPrevious] = useState(false);
 
@@ -41,6 +52,7 @@ export default function CameraComponent({ triggerState }) {
       try {
         const photo = await cameraRef.current.takePictureAsync();
         console.log("Photo taken:", photo.uri);
+        setImage(photo);
       } catch (error) {
         console.error("Error taking photo:", error);
       }
@@ -53,11 +65,24 @@ export default function CameraComponent({ triggerState }) {
     );
   }
 
-  if (previous != triggerState) {
-    console.log("will take picture");
-    takePicture();
-    setPrevious(triggerState);
-  }
+  const handleUploadImage = async (imageUrl) => {
+    try {
+      const res = await UploadImageApi(imageUrl);
+      console.log(res.timeLeft);
+      setTimer(res.timeLeft);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  (async () => {
+    if (previous !== triggerState) {
+      console.log("Will take picture");
+      await takePicture();
+      setPrevious(triggerState);
+      await handleUploadImage(image.uri);
+    }
+  })();
 
   return (
     <View style={styles.container}>
@@ -68,7 +93,7 @@ export default function CameraComponent({ triggerState }) {
         flashMode={flash}
         ratio="16:9"
       >
-        <TopTimer />
+        <TopTimer timer={timer} setTimer={setTimer} />
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
             <Ionicons
@@ -84,9 +109,6 @@ export default function CameraComponent({ triggerState }) {
               }
             ></Ionicons>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.button} onPress={takePicture}>
-                <Text style={styles.text}>Take Picture</Text>
-            </TouchableOpacity> */}
         </View>
       </Camera>
     </View>

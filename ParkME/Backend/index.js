@@ -1,6 +1,6 @@
 import multer from "multer";
 import express from "express";
-import { uploadImageToCloudinary, chatgptVisionPrompt } from "./lib.js";
+//import { uploadImageToCloudinary, chatgptVisionPrompt } from "./lib.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -33,4 +33,15 @@ app.listen(port, () => {
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+
+app.get("/GetResponse", (req, res) => {
+  console.log("Got into Backend");
+  let timeInfo = {
+    timeLeft: 120,
+    vignetteNumber: 0,
+    timeLeftVignette: 0,
+    arrow: false,
+  };
+  res.send(timeInfo);
 });
