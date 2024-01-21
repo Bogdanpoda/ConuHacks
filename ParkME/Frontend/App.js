@@ -4,13 +4,33 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CameraComponent from "./components/CameraComponent";
 import ImageConfirmation from "./Pages/ImageConfirmation";
 import NotificationScreen from "./Pages/NotificationPage";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import SummaryPage from "./Pages/SummaryPage";
+
+import SummaryScreen from "./Pages/SummaryPage";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Camera"
+          component={CameraComponent}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Confirmation"
+          component={ImageConfirmation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="Notifications" component={NotificationScreen} />
+        <Stack.Screen name="Summary" component={SummaryScreen}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -27,6 +47,7 @@ export default function App() {
           <Stack.Screen name="SummaryPage" component={SummaryPage} />
         </Stack.Navigator>
       </NavigationContainer>
+
     </GestureHandlerRootView>
   );
 }
