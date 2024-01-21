@@ -19,8 +19,7 @@
     "react-native": "0.73.2",
 
     "react-native-image-picker": "^7.1.0",
-    "react-native-web": "~0.19.6",
-    "expo-image-picker": "~14.7.1"
+    "expo-image-picker": "~14.7.1",
 
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -28,7 +27,7 @@
     "@mui/material": "^5.11.16",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-material/core": "^1.3.7",
-    "@react-navigation/bottom-tabs": "^6.5.7",
+
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "constants": "^0.0.2",
