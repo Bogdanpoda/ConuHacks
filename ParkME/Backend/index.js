@@ -24,29 +24,31 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
   try {
     let data = await chatgptVisionPrompt(imageUrl);
 
-    if (data.message.content.at(8) == "[") {
+    console.log(data.message.content);
+
+    if (data.message.content.indexOf("[") < data.message.content.indexOf("{")) {
       data = data.message.content.substring(
         data.message.content.indexOf("["),
         data.message.content.lastIndexOf("]") + 1
       );
-    } else if (data.message.content.at(8) == "{") {
+    } else  {
       data = data.message.content.substring(
         data.message.content.indexOf("{"),
         data.message.content.lastIndexOf("}") + 1
       );
-    } else {
-      data = data.message.content;
-    }
+      }
 
     data = JSON.parse(data);
     data = canWePark(data);
+
+    console.log(data);
 
     res.json({
       message: "Data parsed successfully",
       data: data,
     });
   } catch (error) {
-    console.error("Error with chatgptVisionPrompt:", error);
+    res.status(500).json({ status: 500, message: "Error parsing data", error });
   }
 });
 

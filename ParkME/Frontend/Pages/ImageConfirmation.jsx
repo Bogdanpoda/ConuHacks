@@ -10,7 +10,6 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { storeData } from "../lib";
 
 function ImageConfirmation({ route, navigation }) {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -28,7 +27,7 @@ function ImageConfirmation({ route, navigation }) {
 
     try {
       setIsLoading(true);
-      let response = await fetch("http://0.0.0.0:3000/upload-image", {
+      let response = await fetch("http://192.168.137.1:3000/upload-image", {
         method: "POST",
         body: data,
         headers: {
@@ -39,6 +38,12 @@ function ImageConfirmation({ route, navigation }) {
       response = await response.json();
 
       setIsLoading(false);
+
+      if (response.status === 500) {
+        Alert.alert("Error uploading image", response.message);
+        navigation.popToTop();
+        return;
+      }
 
       navigation.replace("SummaryPage", { summary: response.data });
     } catch (error) {

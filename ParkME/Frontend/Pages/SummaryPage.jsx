@@ -20,7 +20,7 @@ export default function SummaryPage({ navigation, route }) {
             <Text style={styles.summaryText}></Text>
           </View>
 
-          <Pressable style={styles.summaryBtn}>
+          <Pressable style={styles.summaryBtn} onPress={() => navigation.popToTop()}>
             <Text style={styles.summaryBtnText}>
               Be notified when it's available
             </Text>
@@ -39,9 +39,7 @@ export default function SummaryPage({ navigation, route }) {
         </View>
 
         <Text style={styles.summaryText}>
-          {summary.timeLeft === "N/A"
-            ? "Parking is available for more than a day!"
-            : "YParking is available for " + summary.timeLeft + " minutes"}
+            You can park here!
         </Text>
 
         <Pressable
@@ -49,7 +47,7 @@ export default function SummaryPage({ navigation, route }) {
           onPress={() => navigation.popToTop()}
         >
           <Text style={styles.summaryBtnText}>
-            Be notified when it's available
+            Be notified when you should move your car
           </Text>
         </Pressable>
       </View>
@@ -102,6 +100,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#fff",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   summaryText: {
     fontSize: 20,
