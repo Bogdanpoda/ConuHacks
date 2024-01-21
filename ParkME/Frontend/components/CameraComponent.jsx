@@ -1,5 +1,5 @@
 // camera.jsx
-import { Camera, CameraType, FlashMode } from 'expo-camera';
+import { AutoFocus, Camera, CameraType, FlashMode } from 'expo-camera';
 import { useState, useRef } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -49,7 +49,7 @@ const MyCamera = () => {
 
     return (
         <View style={styles.container}>
-            <Camera style={styles.camera} type={type} ref={cameraRef} flashMode={flash}>
+            <Camera style={styles.camera} type={type} ref={cameraRef} flashMode={flash} ratio='16:9' autofocus={AutoFocus.on}>
                 <TopTimer />
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
