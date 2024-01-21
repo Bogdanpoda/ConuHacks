@@ -11,6 +11,16 @@ const panelArray = [
 function findTimeLeftForArray(panels){
     const timeLeftArray = panelArray.map(panel => findTimeLeft(panel));
     console.log(timeLeftArray[0]);
+    var timeInfo = {
+        timeLeft: 0,
+        vignetteNumber: null,
+        timeLeftVignette: null,
+        arrow: false
+    }
+
+    
+    }
+
 };
 
 function findTimeLeft(panel){
@@ -85,14 +95,14 @@ function canYouPark(panel, date){
                 const hourInterval = panel.Hours.split(" - ");
                 const invalidHoursArray = [];
                 if (parseInt(hourInterval[0]) < parseInt(hourInterval[1])){
-                    for (let i = hourInterval[0]; i < hourInterval[1]; i++){
+                    for (let i = parseInt(hourInterval[0]); i < parseInt(hourInterval[1]); i++){
                         invalidHoursArray.push(parseInt(i));
                     }
                 } else {
-                    for (let i = hourInterval[0]; i <= 23; i++){
+                    for (let i = parseInt(hourInterval[0]); i <= 23; i++){
                         invalidHoursArray.push(parseInt(i));
                     }
-                    for (let i = 0; i < hourInterval[1]; i++){
+                    for (let i = 0; i < parseInt(hourInterval[1]); i++){
                         invalidHoursArray.push(parseInt(i));
                     }
                 }
@@ -108,14 +118,14 @@ function canYouPark(panel, date){
             const hourInterval = panel.Hours.split(" - ");
             const invalidHoursArray = [];
             if (parseInt(hourInterval[0]) < parseInt(hourInterval[1])){
-                for (let i = hourInterval[0]; i < hourInterval[1]; i++){
+                for (let i = parseInt(hourInterval[0]); i < parseInt(hourInterval[1]); i++){
                     invalidHoursArray.push(parseInt(i));
                 }
             } else {
-                for (let i = hourInterval[0]; i <= 23; i++){
+                for (let i = parseInt(hourInterval[0]); i <= 23; i++){
                     invalidHoursArray.push(parseInt(i));
                 }
-                for (let i = 0; i < hourInterval[1]; i++){
+                for (let i = 0; i < parseInt(hourInterval[1]); i++){
                     invalidHoursArray.push(parseInt(i));
                 }
             }
@@ -136,14 +146,14 @@ function canYouPark(panel, date){
             const hourInterval = panel.Hours.split(" - ");
             const invalidHoursArray = [];
             if (parseInt(hourInterval[0]) < parseInt(hourInterval[1])){
-                for (let i = hourInterval[0]; i < hourInterval[1]; i++){
+                for (let i = parseInt(hourInterval[0]); i < parseInt(hourInterval[1]); i++){
                     invalidHoursArray.push(parseInt(i));
                 }
             } else {
-                for (let i = hourInterval[0]; i <= 23; i++){
+                for (let i = parseInt(hourInterval[0]); i <= 23; i++){
                     invalidHoursArray.push(parseInt(i));
                 }
-                for (let i = 0; i < hourInterval[1]; i++){
+                for (let i = 0; i < parseInt(hourInterval[1]); i++){
                     invalidHoursArray.push(parseInt(i));
                 }
             }
@@ -159,14 +169,14 @@ function canYouPark(panel, date){
         const hourInterval = panel.Hours.split(" - ");
         const invalidHoursArray = [];
         if (parseInt(hourInterval[0]) < parseInt(hourInterval[1])){
-            for (let i = hourInterval[0]; i < hourInterval[1]; i++){
+            for (let i = parseInt(hourInterval[0]); i < parseInt(hourInterval[1]); i++){
                 invalidHoursArray.push(parseInt(i));
             }
         } else {
-            for (let i = hourInterval[0]; i <= 23; i++){
+            for (let i = parseInt(hourInterval[0]); i <= 23; i++){
                 invalidHoursArray.push(parseInt(i));
             }
-            for (let i = 0; i < hourInterval[1]; i++){
+            for (let i = 0; i < parseInt(hourInterval[1]); i++){
                 invalidHoursArray.push(parseInt(i));
             }
         }
