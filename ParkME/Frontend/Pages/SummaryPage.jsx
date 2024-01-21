@@ -1,8 +1,4 @@
 import React from "react";
-<<<<<<< Updated upstream
-
-<Text>Success!</Text>
-=======
 import { Pressable } from "react-native";
 import { View, Text, StyleSheet } from 'react-native';
 
@@ -86,4 +82,3 @@ const styles = StyleSheet.create({
 });
 
 export default SummaryScreen;
->>>>>>> Stashed changes
