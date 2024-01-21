@@ -10,16 +10,37 @@ const panelArray = [
 
 function findTimeLeftForArray(panels){
     const timeLeftArray = panelArray.map(panel => findTimeLeft(panel));
-    console.log(timeLeftArray[0]);
     var timeInfo = {
-        timeLeft: 0,
+        timeLeft: 9999,
         vignetteNumber: null,
         timeLeftVignette: null,
         arrow: false
     }
 
-    
+    var vignettePanel = {};
+
+    for (var i = 0; i < timeLeftArray.length; i++){
+        if (timeLeftArray[i].timeLeft < timeInfo.timeLeft){
+            timeInfo.timeLeft = timeLeftArray[i].timeLeft;
+            if(timeLeftArray[i].vignetteNumber){
+                timeInfo.vignetteNumber = timeLeftArray[i].vignetteNumber;
+                timeInfo.timeLeftVignette = timeLeftArray[i].timeLeftVignette;
+                vignettePanel = timeLeftArray[i];
+            }
+            timeInfo.arrow = timeLeftArray[i].arrow ? true : timeInfo.arrow;
+        }
     }
+
+    for (var i = 0; i < timeLeftArray.length; i++){
+        if (vignettePanel.timeLeft != timeLeftArray[i].timeLeft){
+            if (timeLeftArray[i].timeLeft < vignettePanel.timeLeftVignette){
+                timeInfo.timeLeftVignette = timeLeftArray[i].timeLeft;
+            }
+        }
+    }
+
+    return timeInfo;
+    
 
 };
 
