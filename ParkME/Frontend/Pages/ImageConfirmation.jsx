@@ -9,6 +9,7 @@ import {
   Alert,
 } from "react-native";
 
+
 function ImageConfirmation({ route, navigation }) {
   const { imageUri } = route.params;
 
@@ -50,7 +51,7 @@ function ImageConfirmation({ route, navigation }) {
             name="checkmark"
             size={40}
             color="white"
-            onPress={() => uploadImage(imageUri)}
+            onPress={() => {uploadImage(imageUri), navigation.navigate('SummaryPage')}}
           />
         </Pressable>
       </View>

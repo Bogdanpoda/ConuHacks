@@ -1,5 +1,5 @@
 // camera.jsx
-import { Camera, CameraType, FlashMode, AutoFocus } from "expo-camera";
+import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useState, useRef } from "react";
 import {
     Button,
@@ -82,7 +82,7 @@ export default function CameraComponent({ route, navigation }) {
                 flashMode={flash}
                 ratio="16:9"
                 zoom={zoom}
-                autoFocus={focus}
+                
             >
                 <TopTimer />
                 <View style={styles.buttonContainer}>
