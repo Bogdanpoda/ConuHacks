@@ -22,8 +22,6 @@ export default function HomePage({ trigger }) {
     console.log("firstName");
   };
 
-  console.log("in homepage");
-
   return (
     <View style={styles.textBox}>
       <CameraComponent triggerState={trigger} />

@@ -19,7 +19,6 @@ export default function BottomNavigation({ route, navigation }) {
   useEffect(() => {
     // Update the screen params dynamically whenever trigger changes
 
-    console.log("hello");
   }, [trigger]);
 
   const handleButtonPress = () => {
