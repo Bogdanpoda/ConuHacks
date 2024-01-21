@@ -1,10 +1,15 @@
 import React from "react";
-import { Pressable } from "react-native";
-import { View, Text, StyleSheet } from 'react-native';
+
+import { View, StyleSheet, Pressable, Alert, Text } from "react-native";
 
 
-const SummaryScreen = ({navigation}) => {
-    return (
+export default function SummaryScreen({ navigation, route }) {
+  const { summary } = route.params;
+  return (
+    <View style={styles.container}>
+      <Text style={{ color: "#000" }}>{summary.timeLeft}</Text>
+    </View>
+
         <View style={styles.card}>            
             <Text style={styles.title}>This is a reserved parking spot</Text>
             <View style={styles.divider} />
@@ -22,6 +27,11 @@ const SummaryScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
     card: {
         
         backgroundColor: 'white',
@@ -82,3 +92,6 @@ const styles = StyleSheet.create({
 });
 
 export default SummaryScreen;
+
+
+

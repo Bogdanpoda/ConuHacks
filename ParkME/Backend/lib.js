@@ -35,7 +35,7 @@ const chatgptVisionPrompt = async (imageUrl) => {
         content: [
           {
             type: "text",
-            text: "Examine parking sign image; return JSON with 'RestrictionType' (e.g., 'No Parking'), 'ReservedFor' (permit number if applicable), 'Months' (date range), 'Days' (array), 'Hours', 'Arrow' (true/false for presence). Format: {'RestrictionType': '', 'ReservedFor': null, 'Months': '', 'Days': [], 'Hours': '', 'Arrow': false}.",
+            text: "Examine parking sign image; return JSON. English. Strictly follow the format (array of objects): { 'RestrictionType':  'No Parking' || 'No Stopping' || 'Reserved', 'ReservedFor': number (Permit number if Reserved), 'Months': 'startingMonth - endingMonth', 'Days': [array of days], 'Hours': '', 'Arrow': boolean }.",
           },
           {
             type: "image_url",
