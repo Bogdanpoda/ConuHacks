@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomePage from "./Pages/HomePage";
-import BottomNavigation from "./Components/BottomNavigation";
+import BottomNavigation from "./components/BottomNavigation";
 
 const Stack = createNativeStackNavigator();
 
