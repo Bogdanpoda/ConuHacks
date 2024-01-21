@@ -1,5 +1,5 @@
 // camera.jsx
-import { Camera, CameraType, FlashMode } from "expo-camera";
+import { Camera, CameraType, FlashMode, AutoFocus } from "expo-camera";
 import { useState, useRef } from "react";
 import {
     Button,
@@ -14,12 +14,15 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import ImageUploader from "./ImageUploader";
 import Slider from '@react-native-community/slider';
 
+
 export default function CameraComponent({ route, navigation }) {
     const [type, setType] = useState(CameraType.back);
     const [permission, requestPermission] = Camera.useCameraPermissions();
     const [flash, setFlash] = useState(FlashMode.off);
     const cameraRef = useRef(null);
     const [zoom, setZoom] = useState(0);
+
+
 
     if (!permission) {
         // Camera permissions are still loading
@@ -38,9 +41,7 @@ export default function CameraComponent({ route, navigation }) {
         );
     }
 
-    const handleZoomChange = (value) => {
-        setZoom((value));
-    };
+    
 
     function toggleCameraType() {
         setType((current) =>
@@ -67,14 +68,21 @@ export default function CameraComponent({ route, navigation }) {
         );
     }
 
+    const handleZoomChange = (value) => {
+        setZoom((value));
+    };
+
     return (
         <View style={styles.container}>
+
             <Camera
                 style={styles.camera}
                 type={type}
                 ref={cameraRef}
                 flashMode={flash}
                 ratio="16:9"
+                zoom={zoom}
+                autoFocus={focus}
             >
                 <TopTimer />
                 <View style={styles.buttonContainer}>
@@ -106,6 +114,7 @@ export default function CameraComponent({ route, navigation }) {
                     />
                 </View>
 
+                
                 <View style={styles.navigator}>
                     <ImageUploader navigation={navigation} />
                     <Pressable
@@ -133,6 +142,7 @@ export default function CameraComponent({ route, navigation }) {
                     </Pressable>
                 </View>
             </Camera>
+
         </View>
     );
 }
