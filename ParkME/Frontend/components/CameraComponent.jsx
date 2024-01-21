@@ -1,5 +1,9 @@
 // camera.jsx
+<<<<<<< Updated upstream
 import { Camera, CameraType, FlashMode } from "expo-camera";
+=======
+import { Camera, CameraType, FlashMode} from "expo-camera";
+>>>>>>> Stashed changes
 import { useState, useRef } from "react";
 import {
     Button,
@@ -95,7 +99,11 @@ export default function CameraComponent({ route, navigation }) {
                 flashMode={flash}
                 ratio="16:9"
                 zoom={zoom}
+<<<<<<< Updated upstream
                 
+=======
+               
+>>>>>>> Stashed changes
             >
                 <TopTimer timer={timer} setTimer={setTimer} triggerState={triggerState}/>
                 <View style={styles.buttonContainer}>

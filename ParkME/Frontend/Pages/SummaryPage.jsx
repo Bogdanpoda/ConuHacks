@@ -1,6 +1,14 @@
 import React from "react";
 
+
 import { View, StyleSheet, Pressable, Alert, Text } from "react-native";
+
+
+<Text>Success!</Text>
+
+import { Pressable } from "react-native";
+import { View, Text, StyleSheet } from 'react-native';
+
 
 
 export default function SummaryScreen({ navigation, route }) {
@@ -8,8 +16,6 @@ export default function SummaryScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Text style={{ color: "#000" }}>{summary.timeLeft}</Text>
-    </View>
-
         <View style={styles.card}>            
             <Text style={styles.title}>This is a reserved parking spot</Text>
             <View style={styles.divider} />
@@ -22,6 +28,7 @@ export default function SummaryScreen({ navigation, route }) {
             <View style={styles.btnRow}>
                 <Pressable style={styles.denyBtn} onPress={() => navigation.navigate("Camera",{ triggerState: false })}><Text>I won't park here</Text></Pressable>
             </View>
+        </View>
         </View>
     );
 };
@@ -90,8 +97,6 @@ const styles = StyleSheet.create({
     },
 
 });
-
-export default SummaryScreen;
 
 
 
